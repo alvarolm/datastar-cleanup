@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datastar on-cleanup - Simple Example</title>
+
+    <!-- Load and setup Datastar with the on-cleanup plugin -->
+    <script type="module">
+      import * as datastar from 'https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0-RC.6/bundles/datastar.js'
+      import { install } from '../dist/on-cleanup.js'
+
+      // Install the plugin
+      install(datastar)
+
+      // Make datastar available globally for debugging
+      window.datastar = datastar
+    </script>
+
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .box {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0.5rem 0.5rem 0 0;
+        }
+        button:hover {
+            background: #1976d2;
+        }
+        button.danger {
+            background: #f44336;
+        }
+        button.danger:hover {
+            background: #d32f2f;
+        }
+        pre[data-json-signals] {
+            background: #000;
+            color: #0f0;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🗑️ Datastar on-cleanup Plugin</h1>
+
+    <pre data-json-signals></pre>
+
+    <div data-signals="{ logs: [] }">
+        <h2>Example: Remove Items</h2>
+
+        <p>Click "Remove" to remove the elements from the DOM:</p>
+
+        <div id="items-container">
+            <div class="box" data-on-cleanup="console.log('Cleaning up Item 1'); $logs.push('Removed: Item 1')">
+                Item 1
+                <button class="danger" data-on:click="event.target.closest('.box').remove()">Remove</button>
+            </div>
+
+            <div class="box" data-on-cleanup="console.log('Cleaning up Item 2'); $logs.push('Removed: Item 2')">
+                Item 2
+                <button class="danger" data-on:click="event.target.closest('.box').remove()">Remove</button>
+            </div>
+
+            <div class="box" data-on-cleanup="console.log('Cleaning up Item 3'); $logs.push('Removed: Item 3')">
+                Item 3
+                <button class="danger" data-on:click="event.target.closest('.box').remove()">Remove</button>
+            </div>
+        </div>
+
+        <button data-on:click="location.reload()">
+            Reset (Reload Page)
+        </button>
+    </div>
+
+</body>
+</html>
