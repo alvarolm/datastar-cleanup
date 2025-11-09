@@ -24,6 +24,8 @@ Then use in HTML:
 </div>
 ```
 
+> **Note:** For a more robust solution to execute expressions on element removal, check out [data-on-remove](https://github.com/regaez/data-on-remove).
+
 ## Examples
 
 ### Basic Cleanup
