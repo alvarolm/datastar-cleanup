@@ -1,7 +1,13 @@
 /**
  * On-Cleanup Plugin for Datastar
  *
- * Executes expressions when elements are removed from the DOM.
+ * Executes expressions when cleanup is triggered. Cleanup occurs when:
+ * - Elements are removed from the DOM (element.remove(), parent removal, etc.)
+ * - The data-on-cleanup attribute is removed from an element
+ * - The data-on-cleanup attribute value is changed
+ * - Elements are removed during DOM morphing operations
+ * - Server sends patch-elements with mode=remove
+ *
  * Perfect for cleanup tasks, logging, and state management.
  *
  * Setup:
@@ -11,7 +17,7 @@
  *
  * Examples:
  *   <!-- Basic cleanup -->
- *   <div data-on-cleanup="console.log('Element removed')">
+ *   <div data-on-cleanup="console.log('Cleanup executed')">
  *     Content
  *   </div>
  *
@@ -22,8 +28,8 @@
  *     Timer: <span data-text="$count"></span>
  *   </div>
  *
- *   <!-- Update state on removal -->
- *   <div data-on-cleanup="$count--; $logs.push('Item removed')">
+ *   <!-- Update state on cleanup -->
+ *   <div data-on-cleanup="$count--; $logs.push('Item cleaned up')">
  *     Removable item
  *   </div>
  */
@@ -61,7 +67,7 @@ export function install(engine: DatastarEngine): void {
       }
 
       // Return the callback as a cleanup function
-      // Datastar will execute this when the element is removed from the DOM
+      // Datastar will execute this when cleanup is triggered (see file header for details)
       return callback
     },
   })

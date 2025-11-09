@@ -1,6 +1,8 @@
 # Datastar on-cleanup Plugin
 
-Execute expressions when elements are removed from the DOM.
+Execute expressions when cleanup is triggered.
+
+Cleanup occurs when elements are removed, attributes are removed or changed, or during DOM morphing operations.
 
 Perfect for cleanup tasks, logging, and state management.
 
@@ -44,12 +46,15 @@ Then use in HTML:
 
 ## How It Works
 
-The plugin leverages Datastar's built-in MutationObserver to detect DOM changes. When an element with `data-on-cleanup` is removed, the expression executes automatically.
+The plugin leverages Datastar's built-in cleanup mechanism to detect when cleanup should occur. The expression executes automatically when:
 
-This works for:
-- Manual removal (`element.remove()`)
-- Parent removal (children cleanup automatically)
-- DOM morphing/patching
+- **Element removal**: Manual removal (`element.remove()`), parent removal, or `removeChild()`
+- **Attribute removal**: The `data-on-cleanup` attribute is removed from the element
+- **Attribute value change**: The expression is updated (old cleanup runs, then new one is registered)
+- **DOM morphing**: Elements are replaced during server-driven updates (unless they have persistent IDs)
+- **Server patches**: Server sends `patch-elements` with `mode=remove`
+
+When cleanup executes, signal updates are automatically batched for optimal performance.
 
 > 📖 **Want to know more?** See [CLEANUP_MECHANISM_ANALYSIS.md](./CLEANUP_MECHANISM_ANALYSIS.md) for a detailed explanation of how Datastar's cleanup mechanism works under the hood.
 
