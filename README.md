@@ -4,8 +4,6 @@ Execute expressions when cleanup is triggered.
 
 Cleanup occurs when elements are removed, attributes are removed or changed, or during DOM morphing operations.
 
-Perfect for cleanup tasks, logging, and state management.
-
 ## Quick Start
 
 ```typescript
